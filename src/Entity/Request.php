@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\RequestRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Url as UrlAlias;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -83,37 +82,6 @@ class Request
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Url[]
-     */
-    public function getUrls(): Collection
-    {
-        return $this->urls;
-    }
-
-    public function addUrl(Url $requestUrl): self
-    {
-        if (!$this->urls->contains($requestUrl)) {
-            $this->urls[] = $requestUrl;
-            $requestUrl->setRequest($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUrl(Url $requestUrl): self
-    {
-        if ($this->urls->contains($requestUrl)) {
-            $this->urls->removeElement($requestUrl);
-            // set the owning side to null (unless already changed)
-            if ($requestUrl->getRequest() === $this) {
-                $requestUrl->setRequest(null);
-            }
-        }
 
         return $this;
     }

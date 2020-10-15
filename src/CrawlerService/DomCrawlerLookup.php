@@ -3,6 +3,7 @@
 namespace App\CrawlerService;
 
 
+use App\Lib\UrlHelper;
 use Symfony\Component\DomCrawler\Crawler;
 
 class DomCrawlerLookup extends AbstractWebLookup implements WebLookupInterface
@@ -21,13 +22,16 @@ class DomCrawlerLookup extends AbstractWebLookup implements WebLookupInterface
                 continue;
             }
             $urlComponents = parse_url($item->nodeValue);
+            if (!$urlComponents) {
+                continue;
+            }
             if (isset($urlComponents['host'])) {
-                $host = preg_replace('/^www\./', '', $urlComponents['host']);
+                $host = UrlHelper::removeHostPrefix($urlComponents['host']);
                 if ($host != $domain) {
                     continue;
                 }
             }
-            $urls[] = $urlComponents['path'];
+            $urls[] = UrlHelper::getPathAndQuery($urlComponents);
         }
 
         return $urls;

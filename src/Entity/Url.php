@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\UrlRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -101,13 +100,5 @@ class Url
         $this->crawled_at = $crawled_at;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Email[]
-     */
-    public function getEmails(): Collection
-    {
-        return $this->emails;
     }
 }
