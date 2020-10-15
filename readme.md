@@ -1,4 +1,4 @@
-# Crawler for the Starred
+# Email Crawler
 
 This is a simple crawler to find web pages and email addresses
 
@@ -36,6 +36,6 @@ It is possible to pass a query string `?page=x` to paginate results.
 
 ### Samples to test:
 
-http://www.glengilmore.com/ (Some internal pages and emails)
-https://annenberg.usc.edu/faculty/journalism/bill-celis (Many internal pages and emails)
+http://www.glengilmore.com/ (Some internal pages and emails)<br />
+https://annenberg.usc.edu/faculty/journalism/bill-celis (Many internal pages and emails)<br />
 http://sina.sharif.edu/~rabiee/ (Many internal pages without any email)

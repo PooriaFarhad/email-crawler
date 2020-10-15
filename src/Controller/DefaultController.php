@@ -9,6 +9,6 @@ class DefaultController extends AbstractController
 {
     public function index()
     {
-        return new Response('Hello starred :)');
+        return new Response('Hello :)');
     }
 }
