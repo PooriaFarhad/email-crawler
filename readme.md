@@ -41,4 +41,4 @@ http://sina.sharif.edu/~rabiee/ (Many internal pages without any email)
 
 ### Notes:
 - It is possible to pass a query string `?page=x` to paginate results.
-- By default, There is a max of 100 urls ro crawl per request
+- By default, There is a max of 100 urls ro crawl per request.
