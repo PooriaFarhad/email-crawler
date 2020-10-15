@@ -1,4 +1,41 @@
-Samples to test:
+# Crawler for the Starred
+
+This is a simple crawler to find web pages and email addresses
+
+## How to use
+
+These are the endpoints to submit crawling requests and following them.
+
+#### Create new request
+```bash
+POST /api/requests
+```
+body (JSON)
+```bash
+{
+    "url": "http://www.glengilmore.com/"
+}
+```
+
+#### Get a single request properties
+```bash
+GET /api/requests/{id}
+```
+
+#### Get all submitted requests
+```bash
+GET /api/requests
+```
+
+#### Get crawled emails of request
+```bash
+GET /api/requests/{id}/emails
+```
+
+It is possible to pass a query string `?page=x` to paginate results.
+
+### Samples to test:
+
 http://www.glengilmore.com/ (Some internal pages and emails)
 https://annenberg.usc.edu/faculty/journalism/bill-celis (Many internal pages and emails)
-http://sina.sharif.edu/~rabiee/ (Many internal pages without any emails)
+http://sina.sharif.edu/~rabiee/ (Many internal pages without any email)
