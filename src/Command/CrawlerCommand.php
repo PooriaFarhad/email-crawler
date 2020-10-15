@@ -13,6 +13,8 @@ class CrawlerCommand extends Command
     protected static $defaultName = 'app:crawler';
     private $processor;
 
+    const SLEEP_SECS = 5;
+
     public function __construct(Processor $processor)
     {
         $this->processor = $processor;
@@ -27,9 +29,10 @@ class CrawlerCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $io->note(sprintf('Start to crawling'));
-        $this->processor->execute();
-        $io->success('Finished');
-        return Command::SUCCESS;
+        while (true) {
+            $io->note('Start to check for crawling');
+            $this->processor->execute();
+            sleep(self::SLEEP_SECS);
+        }
     }
 }
