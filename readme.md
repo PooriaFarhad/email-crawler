@@ -32,10 +32,13 @@ GET /api/requests
 GET /api/requests/{id}/emails
 ```
 
-It is possible to pass a query string `?page=x` to paginate results.
 
 ### Samples to test:
 
 http://www.glengilmore.com/ (Some internal pages and emails)<br />
 https://annenberg.usc.edu/faculty/journalism/bill-celis (Many internal pages and emails)<br />
 http://sina.sharif.edu/~rabiee/ (Many internal pages without any email)
+
+### Notes:
+- It is possible to pass a query string `?page=x` to paginate results.
+- By default, There is a max of 100 urls ro crawl per request
