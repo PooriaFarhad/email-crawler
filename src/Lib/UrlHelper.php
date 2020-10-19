@@ -17,7 +17,7 @@ class UrlHelper
             $result .= '/';
         }
 
-        return $result;
+        return trim($result);
     }
 
     public static function getCompleteUrl(string $host, string $pathQuery): string

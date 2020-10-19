@@ -2,7 +2,7 @@
 
 namespace App\Tests\CrawlerService;
 
-use App\CrawlerService\DomCrawlerLookup;
+use App\CrawlerService\WebLookup;
 use PHPUnit\Framework\TestCase;
 
 class LookupTest extends TestCase
@@ -11,7 +11,7 @@ class LookupTest extends TestCase
 
     protected function setUp()
     {
-        $this->lookUpService = new DomCrawlerLookup();
+        $this->lookUpService = new WebLookup();
     }
 
     public function testFindEmailInText()
