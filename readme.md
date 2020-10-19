@@ -37,7 +37,6 @@ GET /api/requests/{id}/emails
 
 http://www.glengilmore.com/ (Some internal pages and emails)<br />
 https://annenberg.usc.edu/faculty/journalism/bill-celis (Many internal pages and emails)<br />
-http://sina.sharif.edu/~rabiee/ (Many internal pages without any email)
 
 ### Notes:
 - It is possible to pass a query string `?page=x` to paginate results.
