@@ -2,14 +2,14 @@
 
 namespace App\Tests\CrawlerService;
 
-use App\CrawlerService\DomCrawlerLookup;
+use App\CrawlerService\WebLookup;
 use App\CrawlerService\Processor;
 use App\CrawlerService\RequestManager;
 use App\CrawlerService\WebLookupInterface;
 use App\Entity\Email;
 use App\Entity\Request;
-use App\Entity\Url;
 use App\Enum\EnumStatus;
+use App\Lib\UrlHelper;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -33,7 +33,7 @@ class ProcessorTest extends KernelTestCase
         $this->assertCount(1, $requests);
         $this->assertEquals(EnumStatus::NEW, reset($requests)->getStatus());
 
-        $domCrawlerLookupMock = $this->createPartialMock(DomCrawlerLookup::class, ['fetchContent']);
+        $domCrawlerLookupMock = $this->createPartialMock(WebLookup::class, ['fetchContent']);
         $domCrawlerLookupMock->method('fetchContent')->will($this->returnValueMap(
             [
                 ['http://example.com//2.html', $this->getPageTwo()],
@@ -48,23 +48,20 @@ class ProcessorTest extends KernelTestCase
 
     private function assertProcessingResults()
     {
+        /** @var Email[] $emails */
         $emails = $this->entityManager->getRepository(Email::class)->findAll();
-        $emailList[] = [];
-        foreach ($emails as $email) {
-            $emailList[] = $email->getEmail();
-        }
         $this->assertCount(2, $emails);
-        $this->assertContains('support@example.com', $emailList);
-        $this->assertContains('mail@example.com', $emailList);
-
-        $urls = $this->entityManager->getRepository(Url::class)->findAll();
-        $urlList[] = [];
-        foreach ($urls as $url) {
-            $urlList[] = $url->getUrl();
+        $expectedFoundEmails = [
+            'mail@example.com' => 'http://example.com//1.html',
+            'support@example.com' => 'http://example.com//2.html'
+        ];
+        foreach ($emails as $email) {
+            $this->assertArrayHasKey($email->getEmail(), $expectedFoundEmails);
+            $this->assertEquals(
+                $expectedFoundEmails[$email->getEmail()],
+                UrlHelper::getCompleteUrl($email->getUrl()->getRequest()->getHost(), $email->getUrl()->getUrl())
+            );
         }
-        $this->assertCount(2, $urls);
-        $this->assertContains('/1.html', $urlList);
-        $this->assertContains('/2.html', $urlList);
     }
 
     private function getPageTwo(): string
